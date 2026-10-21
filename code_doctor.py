@@ -60,7 +60,7 @@ def run_ticket_booth():
             print("Unknown ticket category.")
             continue
 
-        quantity = int(input("How many tickets? "))   
+        quantity = int(input("How many tickets? Please enter quantity as a number."))   
         if quantity <= 0:
             print("ERROR! Please enter quantity of 1 or above.")
             continue
