@@ -24,14 +24,14 @@ def show_menu():
 def calculate_subtotal(order):
     subtotal = 0
     for item in order:
-        subtotal = TICKET_PRICES[item]    
+        subtotal += TICKET_PRICES[item]
     return subtotal
 
 
 def apply_discount(subtotal):
     # Customers spending $100 or more receive a 10% discount.
-    if subtotal > DISCOUNT_THRESHOLD:
-        return subtotal * 1.10            
+    if subtotal >= DISCOUNT_THRESHOLD:
+        return subtotal * 0.9
     return subtotal
 
 
@@ -61,6 +61,9 @@ def run_ticket_booth():
             continue
 
         quantity = int(input("How many tickets? "))   
+        if quantity <= 0:
+            print("ERROR! Please enter quantity of 1 or above.")
+            continue
         if quantity > available_tickets[category]:   
             print("Not enough tickets available.")
             continue
@@ -70,7 +73,10 @@ def run_ticket_booth():
         available_tickets[category] -= quantity
         print(f"Added {quantity} {category} ticket(s).")
 
-    print_receipt(order)
+    if not order: 
+        print("=== YOUR ORDER IS EMPTY. PLEASE ADD TICKETS FIRST! ===")
+    else: 
+        print_receipt(order)
 
 
 run_ticket_booth()
